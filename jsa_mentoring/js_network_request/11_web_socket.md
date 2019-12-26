@@ -1,5 +1,11 @@
 # [Web Socket](https://javascript.info/websocket#summary)
 
+One of the most popular of these strategies was ***long-polling***. This involves keeping an HTTP connection open until the server has some data to push down to the client.
+
+The problem with all of these solutions is that they carry the overhead of HTTP. Every time you make an HTTP request a bunch of headers and cookie data are transferred to the server. This can add up to a reasonably large amount of data that needs to be transferred, which in turn increases latency. If you’re building something like a browser-based game, ***reducing latency is crucial to keeping things running smoothly***. The worst part of this is that a lot of these headers and cookies aren’t actually needed to fulfil the client’s request.
+
+> What we really need is a way of ***creating a persistent, low latency connection that can support transactions initiated by either the client or server***. This is exactly what WebSockets provide and in this post you are going to learn all about how to use them in your own applications.
+
 > The WebSocket protocol provides a way to exchange data between browser and server via a persistent connection.
 >
 > The data can be passed in both directions as **“packets”**, without breaking the connection and additional HTTP-requests.
@@ -73,6 +79,12 @@ socket.onerror = function(error) {
 
 ## 2. **Opening a websocket**
 
+### How WebSockets Work
+
+> **WebSockets provide a persistent connection between a client and server that both parties can use to start sending data at any time.**
+
+The client establishes a WebSocket connection through a process known as the ``WebSocket handshake.`` This process starts with the client sending a regular HTTP request to the server. An **``Upgrade``** header is included in this request that **informs the server that the client wishes to establish a WebSocket connection.**
+
 When ``new WebSocket(url)`` is created, it starts connecting immediately.
 
 During the connection the browser (using headers) asks the server: “Do you support Websocket?” And if the server replies “yes”, then the talk continues in WebSocket protocol, which is not HTTP at all.
@@ -81,6 +93,7 @@ During the connection the browser (using headers) asks the server: “Do you sup
 
 Here’s an example of browser headers for request made by ``new WebSocket("wss://javascript.info/chat")``.
 
+initial request headers
 ```HTTP
 GET /chat
 Host: javascript.info
@@ -90,6 +103,17 @@ Upgrade: websocket
 Sec-WebSocket-Key: Iv8io/9s+lYFgZWcXczP8Q==
 Sec-WebSocket-Version: 13
 ```
+
+If the server supports the WebSocket protocol, it agrees to the upgrade and communicates this through an Upgrade header in the response.
+
+```HTTP
+HTTP/1.1 101 WebSocket Protocol Handshake
+Date: Wed, 16 Oct 2013 10:07:34 GMT
+Connection: Upgrade
+Upgrade: WebSocket
+```
+
+Now that the handshake is complete the initial HTTP connection is replaced by a WebSocket connection that uses the same underlying TCP/IP connection. At this point either party can starting sending data.
 
 - **``Origin``** – the origin of the client page.
   - WebSocket objects are ***``cross-origin`` by nature***.
@@ -117,9 +141,9 @@ Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 
 Here ``Sec-WebSocket-Accept`` is ``Sec-WebSocket-Key``, recoded using a special algorithm. **The browser uses it to make sure that the response corresponds to the request.**
 
+With WebSockets you can transfer as much data as you like without incurring the overhead associated with traditional HTTP requests. Data is transferred through a WebSocket as messages, each of which consists of one or more frames containing the data you are sending (the payload). In order to ensure the message can be properly reconstructed when it reaches the client each frame is prefixed with 4-12 bytes of data about the payload. Using this frame-based messaging system helps to reduce the amount of non-payload data that is transferred, leading to significant reductions in latency.
+
 ## 3. **Extensions and subprotocols**
-
-
 
 ## 4. **Data transfer**
 
@@ -333,3 +357,179 @@ Events:
 WebSocket by itself does not include reconnection, authentication and many other high-level mechanisms. So there are client/server libraries for that, and it’s also possible to implement these capabilities manually.
 
 Sometimes, to integrate WebSocket into existing project, people run WebSocket server in parallel with the main HTTP-server, and they share a single database. Requests to WebSocket use ``wss://ws.site.com``, a subdomain that leads to WebSocket server, while ``https://site.com`` goes to the main HTTP-server.
+
+## 10. [Another Example](https://codepen.io/matt-west/pen/tHlBb)
+
+HTML
+
+```HTML
+<div id="page-wrapper">
+  <h1>WebSockets Demo</h1>
+  
+  <div id="status">Connecting...</div>
+  
+  <ul id="messages"></ul>
+  
+  <form id="message-form" action="#" method="post">
+    <textarea id="message" placeholder="Write your message here..." required></textarea>
+    <button type="submit">Send Message</button>
+    <button type="button" id="close">Close Connection</button>
+  </form>
+</div>
+```
+
+app.js
+
+```JavaScript
+window.onload = function() {
+
+  // Get references to elements on the page.
+  var form = document.getElementById('message-form');
+  var messageField = document.getElementById('message');
+  var messagesList = document.getElementById('messages');
+  var socketStatus = document.getElementById('status');
+  var closeBtn = document.getElementById('close');
+
+
+  // Create a new WebSocket.
+  var socket = new WebSocket('wss://echo.websocket.org');
+
+
+  // Handle any errors that occur.
+  socket.onerror = function(error) {
+    console.log('WebSocket Error: ' + error);
+  };
+
+
+  // Show a connected message when the WebSocket is opened.
+  socket.onopen = function(event) {
+    socketStatus.innerHTML = 'Connected to: ' + event.currentTarget.url;
+    socketStatus.className = 'open';
+  };
+
+
+  // Handle messages sent by the server.
+  socket.onmessage = function(event) {
+    var message = event.data;
+    messagesList.innerHTML += '<li class="received"><span>Received:</span>' + message + '</li>';
+  };
+
+
+  // Show a disconnected message when the WebSocket is closed.
+  socket.onclose = function(event) {
+    socketStatus.innerHTML = 'Disconnected from WebSocket.';
+    socketStatus.className = 'closed';
+  };
+
+
+  // Send a message when the form is submitted.
+  form.onsubmit = function(e) {
+    e.preventDefault();
+
+    // Retrieve the message from the textarea.
+    var message = messageField.value;
+
+    // Send the message through the WebSocket.
+    socket.send(message);
+
+    // Add the message to the messages list.
+    messagesList.innerHTML += '<li class="sent"><span>Sent:</span>' + message + '</li>';
+
+    // Clear out the message field.
+    messageField.value = '';
+
+    return false;
+  };
+
+
+  // Close the WebSocket connection when the close button is clicked.
+  closeBtn.onclick = function(e) {
+    e.preventDefault();
+
+    // Close the WebSocket.
+    socket.close();
+
+    return false;
+  };
+
+};
+```
+
+### Monitoring WebSocket Traffic with the Chrome Dev Tools
+
+Open ``index.html`` in your browser and try sending some messages. You should see that the server echoes your messages back to you.
+
+Chrome DevTools
+![WebSocket Monitoring in Chrome Dev Tools](https://3wga6448744j404mpt11pbx4-wpengine.netdna-ssl.com/wp-content/uploads/2013/10/websockets-dev-tools.png)
+![Chrome DevTool](https://flaviocopes.com/websockets/Screen%20Shot%202019-10-15%20at%2020.25.01.png)
+
+Firefox DevTools
+![Firefox](https://flaviocopes.com/websockets/Screen%20Shot%202019-10-15%20at%2020.24.09.png)
+![Firefox](https://flaviocopes.com/websockets/Screen%20Shot%202019-10-15%20at%2020.24.15.png)
+![Firefox](https://flaviocopes.com/websockets/Screen%20Shot%202019-10-16%20at%2009.45.47.png)
+
+## 11. Browser support for WebSockets
+
+![Browser support for WebSockets](https://flaviocopes.com/websockets/browser-support.png)
+
+## 12. How WebSockets differ from HTTP
+
+HTTP is a very different protocol, and also a different way of communicate.
+
+HTTP is a request/response protocol: the server returns some data when the client requests it.
+
+With WebSockets:
+
+- the **server can send a message to the client** without the client explicitly requesting something
+- the client and the server can **talk to each other simultaneously**
+- **very little data overhead** needs to be exchanged to send messages. This means a **low latency communication**.
+
+**WebSockets** are great for **real-time** and **long-lived** communications.
+
+**HTTP** is great for **occasional data exchange** and interactions initiated by the client.
+
+**HTTP** is **much simpler** to implement, while WebSockets require a bit more overhead.
+
+## 13. Secured WebSockets
+
+Always use the secure, encrypted protocol for WebSockets, ``wss://``.
+
+``ws://`` refers to the unsafe WebSockets version (the ``http:// ``of WebSockets), and should be avoided for obvious reasons.
+
+## 14. Implement a server in Node.js
+
+``ws`` is a popular WebSockets library for Node.js.
+
+We’ll use it to **build a WebSockets server.**
+ 
+ It can also be used to **implement a client**, and use WebSockets to communicate between two backend services.
+
+Install it using ``npm``:
+
+```
+npm init
+npm install ws
+```
+
+The code you need to write is very little:
+
+```JavaScript
+const WebSocket = require('ws')
+
+// creates a new server on port 8080 (the default port for WebSockets)
+const wss = new WebSocket.Server({ port: 8080 })
+
+// adds a callback function when a connection is established
+wss.on('connection', ws => {
+  ws.on('message', message => {
+    console.log(`Received message => ${message}`) // logging the messages it receives
+  })
+  ws.send('ho!') // sending ho! to the client
+})
+```
+
+WebSockets Server - [Live Code](https://glitch.com/edit/#!/flavio-websockets-server-example)
+![WebSockets Server](./WebSocket_server.png)
+
+WebSockets Client - [Live Code](https://glitch.com/edit/#!/flavio-websockets-client-example)
+![WebSockets Client](./WebSocket_client.png)
