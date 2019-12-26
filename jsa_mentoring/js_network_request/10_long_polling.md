@@ -11,13 +11,15 @@
 
 ## 1. Regular Polling
 
-The **simplest** way to get new information from the server is **periodic polling**. 
+The **simplest** way to get new information from the server is **periodic polling**.
+
 1. regular requests to the server: “*Hello, I’m here, do you have any information for me?*”, e.x., once/10 seconds)
 2. In response, the server :
    1. first - takes a notice to itself that the **client is online**
    2. second – **sends a packet of messages** it got till that moment
 
 #### Disadvantages
+
 - Messages are passed with a delay up to 10 seconds (between requests).
 - Even if there are no messages, the server is bombed with requests every 10 seconds, even if the user switched somewhere else or is asleep.
   - That’s quite a load to handle, speaking performance-wise.
@@ -33,7 +35,7 @@ The flow (delivers messages **without delays**):
 
 The situation when the browser sent a request and has a pending connection with the server, is standard for this method. Only when a message is delivered, the connection is reestablished. If the connection is lost, because of, say, a network error, the browser immediately sends a new request.If the connection is lost, because of, say, a network error, the browser immediately sends a new request.
 
-![Long Polling](/jsa_mentoring/js_network_request/Long_Polling.png)
+![Long Polling](./images/Long_Polling.png)
 
 ## 3. Demo: a chat
 

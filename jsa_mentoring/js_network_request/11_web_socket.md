@@ -89,7 +89,7 @@ When ``new WebSocket(url)`` is created, it starts connecting immediately.
 
 During the connection the browser (using headers) asks the server: “Do you support Websocket?” And if the server replies “yes”, then the talk continues in WebSocket protocol, which is not HTTP at all.
 
-![Web Socket](/jsa_mentoring/js_network_request/web_socket.png)
+![Web Socket](./images/web_socket.png)
 
 Here’s an example of browser headers for request made by ``new WebSocket("wss://javascript.info/chat")``.
 
@@ -529,7 +529,7 @@ wss.on('connection', ws => {
 ```
 
 WebSockets Server - [Live Code](https://glitch.com/edit/#!/flavio-websockets-server-example)
-![WebSockets Server](./WebSocket_server.png)
+![WebSockets Server](./images/WebSocket_server.png)
 
 WebSockets Client - [Live Code](https://glitch.com/edit/#!/flavio-websockets-client-example)
-![WebSockets Client](./WebSocket_client.png)
+![WebSockets Client](./images/WebSocket_client.png)
