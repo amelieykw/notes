@@ -4,10 +4,12 @@
 >
 > that doesn’t use any specific protocol like WebSocket or Server Side Events.
 
-1. **Regular polling**
-2. **Long polling**
-3. **Demo: a char**
-4. **Area of usage**
+- [Long polling](#long-polling)
+  - [1. Regular Polling](#1-regular-polling)
+      - [Disadvantages](#disadvantages)
+  - [2. Long polling](#2-long-polling)
+  - [3. Demo: a chat](#3-demo-a-chat)
+  - [4. Area of usage](#4-area-of-usage)
 
 ## 1. Regular Polling
 

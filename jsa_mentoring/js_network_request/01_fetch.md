@@ -2,7 +2,7 @@
 
 > [JS Network Request [Tutorial]](https://javascript.info/network)
 
-1. [Fetch](https://javascript.info/fetch)
+1. [[Fetch](https://javascript.info/fetch)](#1-fetch)
 2. FormData
 3. Fetch: Download progress
 4. Fetch: Abort
@@ -17,11 +17,11 @@
 
 ## 1. Fetch
 
-> - 1.1 **Response headers**
-> - 1.2 **Request headers**
-> - 1.3 **POST requests**
-> - 1.4 **Sending an image**
-> - 1.5 **Summary**
+> - 1.1 [**Response headers**](#11-response-headers)
+> - 1.2 [**Request headers**](#12-request-headers)
+> - 1.3 [**POST requests**](#13-post-requests)
+> - 1.4 [**Sending an image**](#14-sending-an-image)
+> - 1.5 [**Summary**](#15-summary)
 
 JavaScript can send network requests to the server and load new information whenever is needed.
 

@@ -1,5 +1,7 @@
 # [Web Socket](https://javascript.info/websocket#summary)
 
+[websockets/ws](https://github.com/websockets/ws#sending-and-receiving-text-data)
+
 One of the most popular of these strategies was ***long-polling***. This involves keeping an HTTP connection open until the server has some data to push down to the client.
 
 The problem with all of these solutions is that they carry the overhead of HTTP. Every time you make an HTTP request a bunch of headers and cookie data are transferred to the server. This can add up to a reasonably large amount of data that needs to be transferred, which in turn increases latency. If you’re building something like a browser-based game, ***reducing latency is crucial to keeping things running smoothly***. The worst part of this is that a lot of these headers and cookies aren’t actually needed to fulfil the client’s request.
@@ -12,15 +14,23 @@ The problem with all of these solutions is that they carry the overhead of HTTP.
 >
 > WebSocket is especially great for services that **require continuous data exchange**
 
-1. **A simple example**
-2. **Opening a websocket**
-3. **Extensions and subprotocols**
-4. **Data transfer**
-5. **Rate limiting**
-6. **Connection close**
-7. **Connection state**
-8. **Chat example**
-9. **Summary**
+- [Web Socket](#web-socket)
+  - [1. A simple example](#1-a-simple-example)
+  - [2. Opening a websocket](#2-opening-a-websocket)
+    - [How WebSockets Work](#how-websockets-work)
+  - [3. Extensions and subprotocols](#3-extensions-and-subprotocols)
+  - [4. Data transfer](#4-data-transfer)
+  - [5. Rate limiting](#5-rate-limiting)
+  - [6. Connection close](#6-connection-close)
+  - [7. Connection state](#7-connection-state)
+  - [8. Chat example](#8-chat-example)
+  - [9. Summary](#9-summary)
+  - [10. Another Example](#10-another-example)
+    - [Monitoring WebSocket Traffic with the Chrome Dev Tools](#monitoring-websocket-traffic-with-the-chrome-dev-tools)
+  - [11. Browser support for WebSockets](#11-browser-support-for-websockets)
+  - [12. How WebSockets differ from HTTP](#12-how-websockets-differ-from-http)
+  - [13. Secured WebSockets](#13-secured-websockets)
+  - [14. Implement a server in Node.js](#14-implement-a-server-in-nodejs)
 
 ## 1. **A simple example**
 

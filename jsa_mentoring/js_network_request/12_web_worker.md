@@ -20,6 +20,7 @@
   - [8. A Word on Security](#8-a-word-on-security)
   - [9. Use Cases](#9-use-cases)
   - [10. Examples](#10-examples)
+  - [11. Tutorial with a full example](#11-tutorial-with-a-full-example)
 
 ## 1. The Problem: JavaScript Concurrency
 
@@ -322,5 +323,9 @@ In my opinion, this new approach is a bit cleaner and more legible. It defines a
 ## 10. Examples
 
 [Examples](https://html.spec.whatwg.org/multipage/workers.html#examples-6)
+
+=> [The Basics of Web Workers](#the-basics-of-web-workers)
+
+## 11. [Tutorial with a full example](https://www.sitepoint.com/javascript-web-workers/)
 
 => [The Basics of Web Workers](#the-basics-of-web-workers)
