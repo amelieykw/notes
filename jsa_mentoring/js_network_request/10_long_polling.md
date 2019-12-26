@@ -11,8 +11,6 @@
 
 ## 1. Regular Polling
 
----
-
 The **simplest** way to get new information from the server is **periodic polling**. 
 1. regular requests to the server: “*Hello, I’m here, do you have any information for me?*”, e.x., once/10 seconds)
 2. In response, the server :
@@ -25,8 +23,6 @@ The **simplest** way to get new information from the server is **periodic pollin
   - That’s quite a load to handle, speaking performance-wise.
 
 ## 2. Long polling
-
----
 
 The flow (delivers messages **without delays**):
 
@@ -41,13 +37,9 @@ The situation when the browser sent a request and has a pending connection with 
 
 ## 3. Demo: a chat
 
----
-
 [Demo](https://javascript.info/long-polling#long-polling)
 
 ## 4. Area of usage
-
---- 
 
 > **Long polling works great in situations when messages are rare.**
 

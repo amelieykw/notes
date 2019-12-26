@@ -18,8 +18,6 @@
 
 ## 1. **A simple example**
 
----
-
 To open a websocket connection, we need to **create new WebSocket** using the special protocol ``ws`` in the url:
 
 ```JavaScript
@@ -75,8 +73,6 @@ socket.onerror = function(error) {
 
 ## 2. **Opening a websocket**
 
----
-
 When ``new WebSocket(url)`` is created, it starts connecting immediately.
 
 During the connection the browser (using headers) asks the server: “Do you support Websocket?” And if the server replies “yes”, then the talk continues in WebSocket protocol, which is not HTTP at all.
@@ -122,8 +118,6 @@ Sec-WebSocket-Accept: hsBlbuDTkk24srzEOTBUlZAlC2g=
 Here ``Sec-WebSocket-Accept`` is ``Sec-WebSocket-Key``, recoded using a special algorithm. **The browser uses it to make sure that the response corresponds to the request.**
 
 ## 3. **Extensions and subprotocols**
-
----
 
 
 

@@ -2,8 +2,6 @@
 
 ## What is CI ?
 
----
-
 > [[Tutorial] Continuous Integration with CircleCI and NodeJS](https://medium.com/meshstudio/continuous-integration-with-circleci-and-nodejs-44c3cf0074a0)
 > 
 > CI is the process of building and testing a code base whenever an individual developer pushes their contributions to a repository. 
@@ -12,16 +10,12 @@
 
 ## Getting Started
 
---- 
-
 Our CI build process is going to consist of the following two steps:
 
 1. Install dependencies ``npm install``
 2. Execute the test suite ``npm test``
 
 ## Setting up CircleCI
-
----
 
 Our CI provider of choice at Mesh is **CircleCI**. To run builds on Circle, we need to create a new directory in the root of our project called ``.circleci``.
 
@@ -48,8 +42,6 @@ jobs:
 ```
 
 ## The circle.yml File
-
----
 
 - ### **Jobs**
 
@@ -90,6 +82,3 @@ We describe the steps, and their functionality below:
 > ``run: npm test`` — Executes the **automated test suite**
 
 ## Running the build locally
-
----
-

@@ -17,8 +17,6 @@
 
 ## 1. Fetch
 
----
-
 > - 1.1 **Response headers**
 > - 1.2 **Request headers**
 > - 1.3 **POST requests**
@@ -111,8 +109,6 @@ Getting a response is usually a two-stage process:
 
 ### 1.1 Response headers
 
----
-
 The response headers are available in a **Map-like** headers object in ``response.headers``.
 
 ```JavaScript
@@ -128,8 +124,6 @@ for (let [key, value] of response.headers) {
 ```
 
 ### 1.2 Request headers
-
----
 
 To set a request header in ``fetch``, we can use the ``headers`` option.
 
@@ -167,8 +161,6 @@ These headers ensure **proper and safe HTTP,** so they are controlled exclusivel
 
 ### 1.3 POST requests
 
----
-
 - **method** – HTTP-method, e.g. POST,
 - **body** – the request body, one of:
   - a string (e.g. **JSON-encoded**),
@@ -200,11 +192,7 @@ But, as we’re going to send ``JSON``, we use headers option to send ``applicat
 
 ### 1.4 Sending an image
 
----
-
 ### 1.5 Summary
-
----
 
 A typical fetch request consists of two ``await`` calls:
 

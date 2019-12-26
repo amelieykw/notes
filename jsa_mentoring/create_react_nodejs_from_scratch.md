@@ -10,13 +10,9 @@
 
 ## Demo Repo
 
----
-
 [Mentoring](https://github.com/amelieykw/Mentoring/tree/init)
 
 ## Front-end
-
----
 
 > webpack 4 + babel 7 + js + react + redux
 
@@ -28,17 +24,13 @@
 
 ## Back-end
 
----
-
 > babel 7 + nodejs + express
 
-6. [The minimal Node.js with Babel Setup](https://www.robinwieruch.de/minimal-node-js-babel-setup#nodejs-with-babel)
-7. [How to setup Express.js in Node.js](https://www.robinwieruch.de/node-js-express-tutorial)
-8. [How to create a REST API with Express.js in Node.js](https://www.robinwieruch.de/node-express-server-rest-api)
+1. [The minimal Node.js with Babel Setup](https://www.robinwieruch.de/minimal-node-js-babel-setup#nodejs-with-babel)
+2. [How to setup Express.js in Node.js](https://www.robinwieruch.de/node-js-express-tutorial)
+3. [How to create a REST API with Express.js in Node.js](https://www.robinwieruch.de/node-express-server-rest-api)
 
 ## Test
-
----
 
 > - jest + babel-jest
 >
@@ -49,14 +41,10 @@
 
 ## ESLint
 
----
-
 - [How to use ESLint in Webpack](https://www.robinwieruch.de/webpack-eslint)
 - [How to use ESLint in React](https://www.robinwieruch.de/react-eslint-webpack-babel)
 
 ## CI
-
----
 
 ### CircleCI
 
