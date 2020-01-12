@@ -60,3 +60,31 @@ logGreeting(function() {
     console.log('Hello Tony!');
 })
 ```
+
+# How do ``modules`` really work? ``Module.exports`` and ``require``
+
+greet.js
+
+```JavaScript
+var greet = function() {
+    console.log('Hello!');
+}
+
+module.exports = greet;
+```
+
+app.js
+
+In app.js, we use ``require`` to get that module and it returned the value of ``module.exports``, so we then were able to use that function in our app.js file.
+
+```JavaScript
+var greet = require('./greet.js');
+greet();
+```
+
+> **According to the source sode of JavaScript, ``require`` will load the content of file.**
+
+> ``require`` will assume that if you don't put an extension you mean ``.js``.
+>
+> If you don't mean ``.js`` file, you should put an extension.
+
