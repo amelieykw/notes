@@ -1,4 +1,4 @@
-# Steps to set up a React application by `create-react-app`
+# [Steps to set up a React application by `create-react-app`](https://github.com/facebook/create-react-app)
 
 ## Installing create-react-app
 
@@ -12,15 +12,14 @@ It's recommended to install it **globally** so that it can be used at any locati
 ## Create a New React App
 
 ```
-create-react-app my-react-tutorial-app
-cd my-react-tutorial-app
+yarn create react-app my-app
+cd my-app
 ```
 
-The above will create a new folder which has `/node-modules`, `package.json`, `yarn.lock`.
-
-Make this folder looks like this:
+The folder looks like this:
 
 ```
+my-app
 ├── README.md
 ├── node_modules
 ├── package.json
@@ -30,8 +29,13 @@ Make this folder looks like this:
 │   ├── index.html
 │   └── manifest.json
 └── src
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
     ├── index.css
     ├── index.js
+    ├── logo.svg
+    └── serviceWorker.js
 ```
 
 These are the basic required files for our app.
@@ -116,7 +120,7 @@ cd my-react-tutorial-app
 => To **build** this app - for production to the **build** directory:
 
 ```
-npm run build
+yarn build
 ```
 
 The **"build" folder** would contain all the **static** files which can be directly used on any web server.
@@ -126,7 +130,7 @@ Also, the build command **transpiles our source code** into code which the brows
 => To **start** this app - to run in development mode:
 
 ```
-npm start
+yarn start
 ```
 
 It opens ``http://localhost:3000`` automatically to preview our app live.
@@ -138,7 +142,7 @@ Internally, ``npm start`` uses ``webpack dev server`` to start a dev server so t
 => To **test** - to run tests in an interactive manner:
 
 ```
-npm test
+yarn test
 ```
 
 The default configuration is to run tests which are related to the files updated since the last commit.
